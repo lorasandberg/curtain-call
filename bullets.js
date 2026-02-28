@@ -107,7 +107,7 @@ function Reset()
 function Initialize()
 {
 	Reset();
-	playerInvincibility = Development;
+	playerInvincibility = false;
 	//Get the canvas element.
 	Canvas = document.getElementById("canvas");
 
@@ -571,7 +571,8 @@ function GetRecords()
 
 	  for(let i = 0; i < records.length; i++) {
 		 	let date = SQLtoJSDate(records[i][2]);
-			$('#highscore-list').append(
+			let highScoreList = document.getElementById("highscore-list");
+			highScoreList.insertAdjacentHTML("beforeend", 
 			`<div class="score">
 		    <div class="score-nro">${i+1}</div>
 		    <div class="score-name">${records[i][1]}</div>
@@ -587,10 +588,9 @@ function getLocalStorageHighscore() {
 	if(score == null)
 		return;
 	score = JSON.parse(score);
-
-	$("#highscore-cleared").html(score.cleared);
-	$("#highscore-deaths").html(score.deaths);
-	$("#local-score").show();
+	document.getElementById("highscore-cleared").text = score.cleared;
+	document.getElementById("highscore-deaths").text = score.deaths;
+	document.getElementById("local-score").style.display = "block";
 }
 
 function SQLtoJSDate(stamp) {
